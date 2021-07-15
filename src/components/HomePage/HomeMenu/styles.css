@@ -1,0 +1,50 @@
+.home-menu-container {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  height: fit-content;
+  padding-top: 50px;
+  align-items: center;
+  text-align: center;
+  padding-left: 5px;
+}
+.live-clock-text {
+  font-size: 100px;
+  padding-bottom: 50px;
+}
+.live-clock {
+  font-size: 150px;
+  padding-bottom: 30px;
+}
+.home-calendar {
+  padding: 20px;
+  text-align: center;
+  text-decoration-line: none !important;
+  width: 500px;
+  height: fit-content;
+  background-color: white;
+}
+.react-calendar__month-view__weekdays__weekday abbr {
+  text-decoration: none;
+}
+.home-calendar-tile {
+  background-color: #faa662;
+  border: blanchedalmond;
+  border-style: solid;
+  border-width: 1px;
+  height: 75px;
+  width: 10px;
+  color: black;
+}
+.react-calendar__navigation__label {
+  background-color: white;
+  border: none;
+  font-size: 30px;
+}
+
+.react-calendar__navigation__arrow {
+  color: black;
+  font-size: 30px;
+  background-color: white;
+  border: none;
+}

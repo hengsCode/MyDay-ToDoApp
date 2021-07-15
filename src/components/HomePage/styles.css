@@ -1,0 +1,12 @@
+.home-page-container {
+  background-color: blanchedalmond;
+  height: 1328px;
+}
+.home-page-contents {
+  display: flex;
+}
+.home-today-container {
+  padding: 30px;
+  width: 65%;
+  background-color: blanchedalmond !important;
+}

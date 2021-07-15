@@ -1,0 +1,43 @@
+.home-header {
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  background-color: #ff7144;
+}
+.home-header-text {
+  color: white;
+  font-weight: normal;
+  font-size: 50px;
+  padding-left: 500px;
+  text-transform: uppercase;
+}
+.home-menu-icon-container {
+  background-color: #ff7144;
+  border: none;
+  cursor: pointer;
+}
+.home-menu-icon {
+  align-self: center;
+  font-size: 50px !important;
+  color: white;
+  padding-left: 20px;
+}
+.drawer-container {
+  width: 100%;
+}
+.drawer-content {
+  width: 500px;
+}
+.profile-button-container {
+  display: flex;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.profile-button {
+  background-color: #ff7144;
+}
+.profile-avatar {
+  width: 100px !important;
+  height: 100px !important;
+}
