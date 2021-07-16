@@ -1,5 +1,5 @@
-# To-Do-App #
-## Made using ReactJS ##
+# To-Do-App (ReactJS) #
+
 ### Install dependencies using: `yarn install` or `npm install` ###
 ### Run app using: `yarn start` or `npm start` ###
 
