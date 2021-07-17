@@ -1,95 +1,165 @@
-import { React, useState } from "react";
-import { Link } from "react-router-dom";
+import { React, useState, forwardRef } from "react";
+import { Link, useHistory } from "react-router-dom";
 import {
   List,
   ListItem,
   ListItemIcon,
-  Collapse,
-  Button,
   Avatar,
   Divider,
+  Fab,
+  Dialog,
+  DialogTitle,
+  TextField,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
 } from "@material-ui/core";
-import {
-  ExpandLess,
-  ExpandMore,
-  Home,
-  Today,
-  Menu,
-  ListAlt,
-} from "@material-ui/icons";
+import { Home, Today, Menu, Add, LibraryAdd } from "@material-ui/icons";
 import "./styles.css";
+import Slide from "@material-ui/core/Slide";
+import CategoryListItem from "./CategoryListItem";
 
-const taskCategories = [
-  "University",
-  "Work",
-  "Shopping",
-  "Home",
-  "Volunteering",
-];
+const Transition = forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+let taskCategories = [];
 
 const TodayIcon = <Today className="menu-list-item-icon" />;
 const AllIcon = <Home className="menu-list-item-icon" />;
-const LinkItem = (props) => {
-  const { link, label, icon } = props;
-  return (
-    <Link to={link} className="link-text">
-      <ListItem button className="menu-list-item">
-        <ListItemIcon>{icon}</ListItemIcon>
-        <div className="menu-list-item-text">{label}</div>
-      </ListItem>
-    </Link>
-  );
-};
 
-const HomeMenu = (props) => {
-  const [open, setOpen] = useState(true);
+const HomeDrawer = (props) => {
+  const { closeDrawer } = props;
+  const [open, setOpen] = useState(false);
+  const [newTitle, setNewTitle] = useState("");
+  const [newFocus, setNewFocus] = useState(false);
+  const [categories, setCategories] = useState([]);
 
-  const handleClick = () => {
-    setOpen(!open);
+  let history = useHistory();
+
+  const LinkItem = (props) => {
+    const { link, label, icon } = props;
+    return (
+      <Link
+        to={{
+          pathname: link,
+          state: { taskCategories: taskCategories, drawerOpen: open },
+        }}
+        className="link-text"
+      >
+        <ListItem button className="menu-list-item">
+          <ListItemIcon>{icon}</ListItemIcon>
+          <div className="menu-list-item-text">{label}</div>
+        </ListItem>
+      </Link>
+    );
+  };
+
+  const handleClick = (category) => {
+    closeDrawer();
+    history.push({
+      pathname: "/category/" + category.toLowerCase(),
+    });
+    {
+    }
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleAdd = () => {
+    taskCategories.push(newTitle);
+    // setCategories(taskCategories);
+    // setCategories((categories) => [...categories, newTitle]);
+    handleClose();
+    setNewTitle("");
+    setNewFocus(true);
+  };
+
+  const handleChange = (e) => {
+    setNewTitle(e.target.value);
   };
 
   return (
-    <div className="home-drawer-content">
-      <div className="home-drawer-header">
-        <div className="home-drawer-header-content">
-          <div className="home-drawer-header-text">Your To-Do's</div>
-          <Avatar className="home-drawer-avatar">HF</Avatar>
+    <>
+      <div className="home-drawer-content">
+        <div className="home-drawer-header">
+          <div className="home-drawer-header-content">
+            <div className="home-drawer-header-text">Your To-Do's</div>
+            <Avatar className="home-drawer-avatar">HF</Avatar>
+          </div>
+        </div>
+        <div className="home-drawer-body">
+          <List className="menu-list">
+            <LinkItem link="/" label="Today" icon={TodayIcon} />
+            <LinkItem link="/all" label="All tasks" icon={AllIcon} />
+          </List>
+        </div>
+        <Divider
+          className="home-drawer-divider"
+          orientation="horizontal"
+          variant="middle"
+        />
+        <div
+          id="home-drawer-footer-content"
+          className="home-drawer-footer-content"
+        >
+          <List className="menu-category-list">
+            {taskCategories.map((category) => {
+              return (
+                <CategoryListItem
+                  category={category}
+                  handleClick={handleClick}
+                  newFocus={newFocus}
+                />
+              );
+            })}
+          </List>
+        </div>
+        <div className="home-drawer-fab-both-container">
+          <div className="home-drawer-fab-container">
+            <Fab className="home-drawer-fab" onClick={handleClickOpen}>
+              <LibraryAdd className="drawer-fab-icon" />
+            </Fab>
+          </div>
+          <div className="home-drawer-fab-container">
+            <Fab className="home-drawer-fab" onClick={handleClickOpen}>
+              <Add className="drawer-fab-icon" />
+            </Fab>
+          </div>
         </div>
       </div>
-      <div className="home-drawer-body">
-        <List className="menu-list">
-          <LinkItem link="/" label="Today" icon={TodayIcon} />
-          <LinkItem link="/all" label="All tasks" icon={AllIcon} />
-        </List>
-      </div>
-      <Divider
-        className="home-drawer-divider"
-        orientation="horizontal"
-        variant="middle"
-      />
-      <div className="home-drawer-footer-content">
-        <List className="menu-list">
-          {taskCategories.map((category) => {
-            return (
-              <ListItem button onClick={handleClick} className="menu-list-item">
-                <ListItemIcon>
-                  <ListAlt className="menu-list-item-icon" />
-                </ListItemIcon>
-                <div className="menu-list-item-text">{category}</div>
-                <Button className="menu-list-item-drop-down-button">
-                  {open ? (
-                    <ExpandLess className="menu-list-item-drop-down-icon" />
-                  ) : (
-                    <ExpandMore className="menu-list-item-drop-down-icon" />
-                  )}
-                </Button>
-              </ListItem>
-            );
-          })}
-        </List>
-      </div>
-    </div>
+      <Dialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+      >
+        <DialogContent>
+          <TextField
+            className="dialog-new-list-title"
+            placeholder="Add a new title..."
+            onChange={handleChange}
+            value={newTitle}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleAdd} color="primary">
+            Add
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 };
 
-export default HomeMenu;
+export default HomeDrawer;

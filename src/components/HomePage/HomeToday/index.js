@@ -43,6 +43,8 @@ const tasks = [
   },
 ];
 
+// const completed = [];
+
 const HomeToday = (props) => {
   const { today } = props;
   const [newTask, setNewTask] = useState("");

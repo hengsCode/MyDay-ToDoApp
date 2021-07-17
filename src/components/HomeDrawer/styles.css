@@ -21,6 +21,7 @@
 }
 .home-drawer-content {
   height: fit-content;
+  max-height: fit-content;
 }
 .home-drawer-header {
   background-color: blanchedalmond;
@@ -52,4 +53,30 @@
 .menu-list-item-drop-down-icon {
   font-size: 40px !important;
   padding: 20px;
+}
+.home-drawer-fab-both-container {
+  display: flex;
+  justify-content: center;
+}
+.home-drawer-fab-container {
+  padding: 10px;
+}
+.home-drawer-fab {
+  background-color: #ff7144 !important;
+  width: 70px !important;
+  height: 70px !important;
+}
+.drawer-fab-icon {
+  color: white;
+  font-size: 50px !important;
+}
+.dialog-new-list-title {
+  width: 100%;
+}
+.home-drawer-footer-content {
+  max-height: 810px;
+  overflow-y: auto;
+}
+.home-drawer-footer-content::-webkit-scrollbar {
+  width: 0;
 }

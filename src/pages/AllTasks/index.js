@@ -1,13 +1,14 @@
-import { React } from "react";
+import { React, useEffect, useState } from "react";
 import { Route, BrowserRouter as Router, Link } from "react-router-dom";
-import HomePage from "../../components/HomePage";
+import AllTaskView from "../../components/AllTaskView";
 
-const AllTasks = () => {
-  const path = "/all";
+const AllTasks = (props) => {
+  const { taskCategories, drawerOpen } = props.location.state;
+
+  // console.log(taskCategories);
+
   return (
-    <Route exact path={path}>
-      <HomePage />
-    </Route>
+    <AllTaskView taskCategories={taskCategories} drawerOpen={drawerOpen} />
   );
 };
 
