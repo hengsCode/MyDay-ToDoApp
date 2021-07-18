@@ -66,6 +66,7 @@ const HomeDrawer = (props) => {
 
   const handleClose = () => {
     setOpen(false);
+    setNewTitle("");
   };
 
   const handleAdd = () => {

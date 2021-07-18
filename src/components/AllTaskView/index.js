@@ -1,15 +1,15 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import HomeHeader from "../HomePage/HomeHeader";
 import { Tabs, Tab } from "@material-ui/core";
-import { useSelector, useDispatch } from "react-redux";
-import { setCategory } from "../../redux/slices/category.slice";
+import { useSelector } from "react-redux";
+import CategoryTaskView from "./CategoryTaskView";
+import "./styles.css";
 
 const AllTaskView = (props) => {
   const [value, setValue] = useState(0);
   const { categoryList } = useSelector((state) => state.category);
-  const dispatch = useDispatch();
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (_, newValue) => {
     setValue(newValue);
   };
 
@@ -22,13 +22,13 @@ const AllTaskView = (props) => {
           value={value}
           onChange={handleChange}
           indicatorColor="primary"
-          textColor="primary"
-          centered
+          className="tabs-container"
         >
           {categoryList.map((category) => {
             return <Tab label={category.label} />;
           })}
         </Tabs>
+        <CategoryTaskView index={value} />
       </div>
     </div>
   );

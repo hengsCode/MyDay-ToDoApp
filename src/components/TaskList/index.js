@@ -14,12 +14,13 @@ const expandLess = <ExpandLess className="task-list-icon" />;
 
 const TaskList = (props) => {
   const { index } = props;
+  const { categoryList } = useSelector((state) => state.category);
+  const dispatch = useDispatch();
+
   const [completeBool, setCompleteBool] = useState(false);
   const [todoBool, setToDoBool] = useState(false);
   const [completeOpen, setCompleteOpen] = useState(expandMore);
   const [todoOpen, setToDoOpen] = useState(expandMore);
-  const { categoryList } = useSelector((state) => state.category);
-  const dispatch = useDispatch();
 
   const handleCompleteOpen = () => {
     setCompleteBool(!completeBool);
