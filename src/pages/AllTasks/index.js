@@ -3,13 +3,7 @@ import { Route, BrowserRouter as Router, Link } from "react-router-dom";
 import AllTaskView from "../../components/AllTaskView";
 
 const AllTasks = (props) => {
-  const { taskCategories, drawerOpen } = props.location.state;
-
-  // console.log(taskCategories);
-
-  return (
-    <AllTaskView taskCategories={taskCategories} drawerOpen={drawerOpen} />
-  );
+  return <AllTaskView />;
 };
 
 export default AllTasks;

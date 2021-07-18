@@ -19,12 +19,12 @@ import { Home, Today, Menu, Add, LibraryAdd } from "@material-ui/icons";
 import "./styles.css";
 import Slide from "@material-ui/core/Slide";
 import CategoryListItem from "./CategoryListItem";
+import { useSelector, useDispatch } from "react-redux";
+import { setCategory } from "../../redux/slices/category.slice";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
-let taskCategories = [];
 
 const TodayIcon = <Today className="menu-list-item-icon" />;
 const AllIcon = <Home className="menu-list-item-icon" />;
@@ -34,20 +34,15 @@ const HomeDrawer = (props) => {
   const [open, setOpen] = useState(false);
   const [newTitle, setNewTitle] = useState("");
   const [newFocus, setNewFocus] = useState(false);
-  const [categories, setCategories] = useState([]);
+  const { categoryList } = useSelector((state) => state.category);
+  const dispatch = useDispatch();
 
   let history = useHistory();
 
   const LinkItem = (props) => {
     const { link, label, icon } = props;
     return (
-      <Link
-        to={{
-          pathname: link,
-          state: { taskCategories: taskCategories, drawerOpen: open },
-        }}
-        className="link-text"
-      >
+      <Link to={link} className="link-text">
         <ListItem button className="menu-list-item">
           <ListItemIcon>{icon}</ListItemIcon>
           <div className="menu-list-item-text">{label}</div>
@@ -74,9 +69,14 @@ const HomeDrawer = (props) => {
   };
 
   const handleAdd = () => {
-    taskCategories.push(newTitle);
-    // setCategories(taskCategories);
-    // setCategories((categories) => [...categories, newTitle]);
+    dispatch(
+      setCategory({
+        categoryList: [
+          ...categoryList,
+          { label: newTitle, taskList: [], completedList: [] },
+        ],
+      })
+    );
     handleClose();
     setNewTitle("");
     setNewFocus(true);
@@ -111,14 +111,16 @@ const HomeDrawer = (props) => {
           className="home-drawer-footer-content"
         >
           <List className="menu-category-list">
-            {taskCategories.map((category) => {
-              return (
-                <CategoryListItem
-                  category={category}
-                  handleClick={handleClick}
-                  newFocus={newFocus}
-                />
-              );
+            {categoryList.map((category) => {
+              if (category.label !== "Today") {
+                return (
+                  <CategoryListItem
+                    category={category.label}
+                    handleClick={handleClick}
+                    newFocus={newFocus}
+                  />
+                );
+              }
             })}
           </List>
         </div>

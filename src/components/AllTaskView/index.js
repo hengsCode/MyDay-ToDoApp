@@ -1,15 +1,13 @@
 import { React, useState, useEffect } from "react";
 import HomeHeader from "../HomePage/HomeHeader";
 import { Tabs, Tab } from "@material-ui/core";
+import { useSelector, useDispatch } from "react-redux";
+import { setCategory } from "../../redux/slices/category.slice";
 
 const AllTaskView = (props) => {
-  const { taskCategories, drawerOpen } = props;
   const [value, setValue] = useState(0);
-  const [categories, setCategories] = useState(taskCategories);
-
-  // useEffect(() => {
-  //   setValue(0);
-  // }, [drawerOpen]);
+  const { categoryList } = useSelector((state) => state.category);
+  const dispatch = useDispatch();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -27,8 +25,8 @@ const AllTaskView = (props) => {
           textColor="primary"
           centered
         >
-          {taskCategories.map((category) => {
-            return <Tab label={category} />;
+          {categoryList.map((category) => {
+            return <Tab label={category.label} />;
           })}
         </Tabs>
       </div>

@@ -4,26 +4,40 @@ import HomeHeader from "../../components/HomePage/HomeHeader";
 import { Paper, TextField, Button } from "@material-ui/core";
 import TaskList from "../../components/TaskList";
 import "./styles.css";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  setCategory,
+  setTaskList,
+  setCompletedList,
+} from "../../redux/slices/category.slice";
 
-const tasks = [];
-const completed = [];
 const CategoryList = (props) => {
   const { category } = useParams();
-
+  const { categoryList } = useSelector((state) => state.category);
+  const dispatch = useDispatch();
   const [newTask, setNewTask] = useState("");
-  const [taskList, setTaskList] = useState(tasks);
-  const [completedList, setCompletedList] = useState(completed);
+
+  let result = categoryList.findIndex((obj) => {
+    return obj.label.toLowerCase() === category;
+  });
 
   const handleChange = (e) => {
     setNewTask(e.target.value);
   };
 
   const handleClick = () => {
-    setTaskList([...taskList, { label: newTask }]);
+    dispatch(
+      setTaskList({
+        index: result,
+        taskList: [
+          ...categoryList[result].taskList,
+          { label: newTask, checked: false },
+        ],
+      })
+    );
     setNewTask("");
   };
 
-  console.log(category);
   return (
     <div className="category-list-container">
       <HomeHeader />
@@ -32,16 +46,11 @@ const CategoryList = (props) => {
           <div className="category-task-view-header-container">
             <div className="category-task-view-header">{category}</div>
             <div className="category-task-view-sub-header">
-              {completedList.length} completed tasks
+              {categoryList[result].completedList.length} completed tasks
             </div>
           </div>
           <div className="category-task-list-container">
-            <TaskList
-              taskList={taskList}
-              completedList={completedList}
-              setTaskList={setTaskList}
-              setCompletedList={setCompletedList}
-            />
+            <TaskList index={result} />
           </div>
           <div className="category-task-view-new-task">
             <TextField

@@ -3,16 +3,23 @@ import "./styles.css";
 import { Card, CardActionArea, CardContent } from "@material-ui/core";
 import { ExpandMore, ExpandLess } from "@material-ui/icons";
 import ListComponent from "./ListComponent";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  setTaskList,
+  setCompletedList,
+} from "../../redux/slices/category.slice";
 
 const expandMore = <ExpandMore className="task-list-icon" />;
 const expandLess = <ExpandLess className="task-list-icon" />;
 
 const TaskList = (props) => {
-  const { taskList, completedList, setTaskList, setCompletedList } = props;
+  const { index } = props;
   const [completeBool, setCompleteBool] = useState(false);
   const [todoBool, setToDoBool] = useState(false);
   const [completeOpen, setCompleteOpen] = useState(expandMore);
   const [todoOpen, setToDoOpen] = useState(expandMore);
+  const { categoryList } = useSelector((state) => state.category);
+  const dispatch = useDispatch();
 
   const handleCompleteOpen = () => {
     setCompleteBool(!completeBool);
@@ -33,27 +40,55 @@ const TaskList = (props) => {
   };
 
   const handleToDoRadio = (label) => {
-    setCompletedList([...completedList, { label: label, checked: true }]);
+    dispatch(
+      setCompletedList({
+        index: index,
+        completedList: [
+          ...categoryList[index].completedList,
+          { label: label, checked: true },
+        ],
+      })
+    );
+    handleToDoDelete(label);
   };
 
-  const handleToDoDelete = (task) => {
-    taskList.splice(
-      taskList.findIndex((x) => x.label === task),
-      1
+  const handleToDoDelete = (label) => {
+    dispatch(
+      setTaskList({
+        index: index,
+        taskList: categoryList[index].taskList.filter((task) => {
+          if (task.label !== label) {
+            return task;
+          }
+        }),
+      })
     );
-    setTaskList([...taskList]);
   };
 
   const handleCompletedRadio = (label) => {
-    setTaskList([...taskList, { label: label, checked: false }]);
+    dispatch(
+      setTaskList({
+        index: index,
+        taskList: [
+          ...categoryList[index].taskList,
+          { label: label, checked: false },
+        ],
+      })
+    );
+    handleCompletedDelete(label);
   };
 
-  const handleCompletedDelete = (task) => {
-    completedList.splice(
-      completedList.findIndex((x) => x.label === task),
-      1
+  const handleCompletedDelete = (label) => {
+    dispatch(
+      setCompletedList({
+        index: index,
+        completedList: categoryList[index].completedList.filter((task) => {
+          if (task.label !== label) {
+            return task;
+          }
+        }),
+      })
     );
-    setCompletedList([...completedList]);
   };
 
   return (
@@ -61,14 +96,16 @@ const TaskList = (props) => {
       <Card className="task-list-container">
         <CardActionArea onClick={handleToDoOpen}>
           <CardContent className="task-list-content">
-            <div className="task-list-text">Tasks [{taskList.length}]</div>
+            <div className="task-list-text">
+              Tasks [{categoryList[index].taskList.length}]
+            </div>
             {todoOpen}
           </CardContent>
         </CardActionArea>
       </Card>
       <ListComponent
         open={todoBool}
-        list={taskList}
+        list={categoryList[index].taskList}
         handleRadioChange={handleToDoRadio}
         handleDelete={handleToDoDelete}
         taskCardContent="to-do-card-content"
@@ -77,7 +114,7 @@ const TaskList = (props) => {
         <CardActionArea onClick={handleCompleteOpen}>
           <CardContent className="task-list-content">
             <div className="task-list-text">
-              Completed [{completedList.length}]
+              Completed [{categoryList[index].completedList.length}]
             </div>
             {completeOpen}
           </CardContent>
@@ -85,7 +122,7 @@ const TaskList = (props) => {
       </Card>
       <ListComponent
         open={completeBool}
-        list={completedList}
+        list={categoryList[index].completedList}
         handleRadioChange={handleCompletedRadio}
         handleDelete={handleCompletedDelete}
         taskCardContent="completed-card-content"

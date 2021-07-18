@@ -3,60 +3,38 @@ import "./styles.css";
 import { Paper, TextField, Button } from "@material-ui/core";
 import { ExpandMore, ExpandLess } from "@material-ui/icons";
 import TaskList from "../../TaskList";
-
-const tasks = [
-  {
-    label: "Do the laundry",
-    checked: false,
-  },
-  {
-    label: "Clean the dishes",
-    checked: false,
-  },
-  {
-    label: "Make food",
-    checked: false,
-  },
-  {
-    label: "Clean room",
-    checked: false,
-  },
-  {
-    label: "Feed pet",
-    checked: false,
-  },
-  {
-    label: "Feed fish",
-    checked: false,
-  },
-  {
-    label: "Walk pet",
-    checked: false,
-  },
-  {
-    label: "Clean pet",
-    checked: false,
-  },
-  {
-    label: "Feed pet",
-    checked: false,
-  },
-];
+import { useSelector, useDispatch } from "react-redux";
+import {
+  setTaskList,
+  setCompletedList,
+} from "../../../redux/slices/category.slice";
 
 // const completed = [];
 
 const HomeToday = (props) => {
   const { today } = props;
   const [newTask, setNewTask] = useState("");
-  const [taskList, setTaskList] = useState(tasks);
-  const [completedList, setCompletedList] = useState([]);
+  const { categoryList } = useSelector((state) => state.category);
+  const dispatch = useDispatch();
+  let result = categoryList.findIndex((obj) => {
+    return obj.label.toLowerCase() === "today";
+  });
 
   const handleChange = (e) => {
     setNewTask(e.target.value);
   };
 
   const handleClick = () => {
-    setTaskList([...taskList, { label: newTask }]);
+    dispatch(
+      setTaskList({
+        index: result,
+        taskList: [
+          ...categoryList[result].taskList,
+          { label: newTask, checked: false },
+        ],
+      })
+    );
+
     setNewTask("");
   };
 
@@ -68,12 +46,7 @@ const HomeToday = (props) => {
           <div className="today-date-text">{today}</div>
         </div>
         <div className="today-task-container">
-          <TaskList
-            taskList={taskList}
-            completedList={completedList}
-            setTaskList={setTaskList}
-            setCompletedList={setCompletedList}
-          />
+          <TaskList index={result} />
         </div>
         <div className="new-task-container">
           <TextField
