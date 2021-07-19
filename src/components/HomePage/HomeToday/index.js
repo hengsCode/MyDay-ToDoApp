@@ -1,24 +1,20 @@
 import { React, useState } from "react";
-import "./styles.css";
 import { Paper, TextField, Button } from "@material-ui/core";
-import { ExpandMore, ExpandLess } from "@material-ui/icons";
-import TaskList from "../../TaskList";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setTaskList,
-  setCompletedList,
-} from "../../../redux/slices/category.slice";
-
-// const completed = [];
+import TaskList from "../../TaskList";
+import { setTaskList } from "../../../redux/slices/group.slice";
+import "./styles.css";
 
 const HomeToday = (props) => {
   const { today } = props;
   const [newTask, setNewTask] = useState("");
-  const { categoryList } = useSelector((state) => state.category);
+  const { groupList } = useSelector((state) => state.group);
   const dispatch = useDispatch();
-  let result = categoryList.findIndex((obj) => {
-    return obj.label.toLowerCase() === "today";
-  });
+  const group = groupList.find((obj) => obj.label.toLowerCase() === "today");
+
+  const category = group.categoryList.find(
+    (obj) => obj.label.toLowerCase() === "today"
+  );
 
   const handleChange = (e) => {
     setNewTask(e.target.value);
@@ -27,14 +23,11 @@ const HomeToday = (props) => {
   const handleClick = () => {
     dispatch(
       setTaskList({
-        index: result,
-        taskList: [
-          ...categoryList[result].taskList,
-          { label: newTask, checked: false },
-        ],
+        _groupId: group._groupId,
+        _categoryId: category._categoryId,
+        taskList: [...category.taskList, { label: newTask, checked: false }],
       })
     );
-
     setNewTask("");
   };
 
@@ -46,7 +39,10 @@ const HomeToday = (props) => {
           <div className="today-date-text">{today}</div>
         </div>
         <div className="today-task-container">
-          <TaskList index={result} />
+          <TaskList
+            groupId={group._groupId}
+            categoryId={category._categoryId}
+          />
         </div>
         <div className="new-task-container">
           <TextField

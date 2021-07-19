@@ -13,8 +13,8 @@ const Task = (props) => {
   const { task, handleDelete, handleRadioChange, taskCardContent } = props;
 
   const handleRadio = () => {
-    handleRadioChange(task.label);
-    handleDelete(task.label);
+    handleRadioChange(task._taskId);
+    handleDelete(task._taskId);
   };
 
   return (
@@ -32,7 +32,7 @@ const Task = (props) => {
         </CardActionArea>
         <Button
           onClick={() => {
-            handleDelete(task.label);
+            handleDelete(task._taskId);
           }}
         >
           <Delete className="task-delete-icon" />

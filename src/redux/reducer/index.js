@@ -1,7 +1,7 @@
 import { combineReducers } from "@reduxjs/toolkit";
 
-import categoryReducer from "../slices/category.slice";
+import groupReducer from "../slices/group.slice";
 
 export default combineReducers({
-  category: categoryReducer,
+  group: groupReducer,
 });

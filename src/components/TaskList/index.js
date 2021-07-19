@@ -4,18 +4,23 @@ import { Card, CardActionArea, CardContent } from "@material-ui/core";
 import { ExpandMore, ExpandLess } from "@material-ui/icons";
 import ListComponent from "./ListComponent";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setTaskList,
-  setCompletedList,
-} from "../../redux/slices/category.slice";
+import { setTaskList, setCompletedList } from "../../redux/slices/group.slice";
 
 const expandMore = <ExpandMore className="task-list-icon" />;
 const expandLess = <ExpandLess className="task-list-icon" />;
 
 const TaskList = (props) => {
-  const { index } = props;
-  const { categoryList } = useSelector((state) => state.category);
+  const { categoryId, groupId } = props;
+  const { groupList } = useSelector((state) => state.group);
   const dispatch = useDispatch();
+
+  const group = groupList.find((group) => {
+    return group._groupId === groupId;
+  });
+
+  const category = group.categoryList.find((category) => {
+    return category._categoryId === categoryId;
+  });
 
   const [completeBool, setCompleteBool] = useState(false);
   const [todoBool, setToDoBool] = useState(false);
@@ -40,25 +45,32 @@ const TaskList = (props) => {
     }
   };
 
-  const handleToDoRadio = (label) => {
+  const handleToDoRadio = (_taskId) => {
+    const task = category.taskList.find((obj) => obj._taskId == _taskId);
     dispatch(
       setCompletedList({
-        index: index,
+        _groupId: group._groupId,
+        _categoryId: category._categoryId,
         completedList: [
-          ...categoryList[index].completedList,
-          { label: label, checked: true },
+          ...category.completedList,
+          {
+            _taskId: category.completedList.length + 1,
+            label: task.label,
+            checked: true,
+          },
         ],
       })
     );
-    handleToDoDelete(label);
+    handleToDoDelete(_taskId);
   };
 
-  const handleToDoDelete = (label) => {
+  const handleToDoDelete = (_taskId) => {
     dispatch(
       setTaskList({
-        index: index,
-        taskList: categoryList[index].taskList.filter((task) => {
-          if (task.label !== label) {
+        _groupId: group._groupId,
+        _categoryId: category._categoryId,
+        taskList: category.taskList.filter((task) => {
+          if (task._taskId !== _taskId) {
             return task;
           }
         }),
@@ -66,25 +78,32 @@ const TaskList = (props) => {
     );
   };
 
-  const handleCompletedRadio = (label) => {
+  const handleCompletedRadio = (_taskId) => {
+    const task = category.completedList.find((obj) => obj._taskId == _taskId);
     dispatch(
       setTaskList({
-        index: index,
+        _groupId: group._groupId,
+        _categoryId: category._categoryId,
         taskList: [
-          ...categoryList[index].taskList,
-          { label: label, checked: false },
+          ...category.taskList,
+          {
+            _taskId: category.taskList.length + 1,
+            label: task.label,
+            checked: false,
+          },
         ],
       })
     );
-    handleCompletedDelete(label);
+    handleCompletedDelete(_taskId);
   };
 
-  const handleCompletedDelete = (label) => {
+  const handleCompletedDelete = (_taskId) => {
     dispatch(
       setCompletedList({
-        index: index,
-        completedList: categoryList[index].completedList.filter((task) => {
-          if (task.label !== label) {
+        _groupId: group._groupId,
+        _categoryId: category._categoryId,
+        completedList: category.completedList.filter((task) => {
+          if (task._taskId !== _taskId) {
             return task;
           }
         }),
@@ -98,7 +117,7 @@ const TaskList = (props) => {
         <CardActionArea onClick={handleToDoOpen}>
           <CardContent className="task-list-content">
             <div className="task-list-text">
-              Tasks [{categoryList[index].taskList.length}]
+              Tasks [{category.taskList.length}]
             </div>
             {todoOpen}
           </CardContent>
@@ -106,7 +125,7 @@ const TaskList = (props) => {
       </Card>
       <ListComponent
         open={todoBool}
-        list={categoryList[index].taskList}
+        list={category.taskList}
         handleRadioChange={handleToDoRadio}
         handleDelete={handleToDoDelete}
         taskCardContent="to-do-card-content"
@@ -115,7 +134,7 @@ const TaskList = (props) => {
         <CardActionArea onClick={handleCompleteOpen}>
           <CardContent className="task-list-content">
             <div className="task-list-text">
-              Completed [{categoryList[index].completedList.length}]
+              Completed [{category.completedList.length}]
             </div>
             {completeOpen}
           </CardContent>
@@ -123,7 +142,7 @@ const TaskList = (props) => {
       </Card>
       <ListComponent
         open={completeBool}
-        list={categoryList[index].completedList}
+        list={category.completedList}
         handleRadioChange={handleCompletedRadio}
         handleDelete={handleCompletedDelete}
         taskCardContent="completed-card-content"
