@@ -1,29 +1,28 @@
-.task-container {
-  padding-bottom: 15px;
-}
 .task-card {
   display: flex;
-  background-color: rgb(42, 37, 37) !important;
-  border-radius: 10px !important;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: rgb(42, 37, 37);
+  height: 60px;
+  border-radius: 5px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+.task-card:hover {
+  cursor: move;
+}
+
 .to-do-card-content {
   color: rgb(233, 225, 181);
   font-weight: light;
-  letter-spacing: 0.05cm;
+  letter-spacing: 0.3rem;
   font-size: 17px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
-
 .completed-card-content {
   color: rgb(233, 225, 181);
   font-weight: light;
   opacity: 20%;
-  letter-spacing: 0.05cm;
+  letter-spacing: 0.3rem;
   font-size: 17px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   text-decoration-line: line-through;
 }
 
@@ -36,11 +35,32 @@
   background-color: transparent !important;
 }
 .task-delete-icon {
-  color: grey;
+  align-self: center;
+  position: relative;
+  right: 20px;
+  color: crimson;
+}
+.task-delete-icon:hover {
+  cursor: pointer;
+  opacity: 50%;
 }
 .new-task-button-container {
   align-self: center;
   padding-left: 5px;
 }
-.new-task-button {
+.task-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.draggable {
+  margin: 10px 0;
+}
+.draggable:hover {
+  opacity: 90%;
+  transition: opacity 0.5s ease;
+}
+.draggable.dragging {
+  opacity: 70%;
+  transition: opacity 0.3s ease-in-out;
 }
