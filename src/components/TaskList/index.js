@@ -99,14 +99,12 @@ const TaskList = (props) => {
         </div>
         {todoOpen}
       </div>
-      <div className="todo-dropdown-content">
-        <ToDoComponent
-          open={todoBool}
-          list={categoryList[index].taskList}
-          handleRadioChange={handleToDoRadio}
-          handleDelete={handleToDoDelete}
-        />
-      </div>
+      <ToDoComponent
+        open={todoBool}
+        list={categoryList[index].taskList}
+        handleRadioChange={handleToDoRadio}
+        handleDelete={handleToDoDelete}
+      />
       <div className="task-dropdown" onClick={handleCompleteOpen}>
         <div className="task-list-text">
           Completed [{categoryList[index].completedList.length}]

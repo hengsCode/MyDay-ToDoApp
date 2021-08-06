@@ -5,6 +5,7 @@ import { AllTasks } from "../pages";
 import CategoryList from "../pages/CategoryList";
 import { Provider } from "react-redux";
 import store from "../redux/store";
+import Timer from "../components/Timer";
 
 const Routes = () => {
   return (
@@ -13,6 +14,7 @@ const Routes = () => {
         <Route exact path="/" component={Home} />
         <Route path="/category/:category" component={CategoryList} />
         <Route path="/all" component={AllTasks} />
+        <Route path="/timer" component={Timer} />
       </Router>
     </Provider>
   );
