@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import { useParams } from "react-router-dom";
 import HomeHeader from "../../components/HomePage/HomeHeader";
-import { Paper, TextField, Button } from "@material-ui/core";
+import { TextField, Button } from "@material-ui/core";
 import TaskList from "../../components/TaskList";
 import "./styles.css";
 import { useSelector, useDispatch } from "react-redux";
@@ -42,7 +42,7 @@ const CategoryList = (props) => {
     <div className="category-list-container">
       <HomeHeader />
       <div className="category-list-content">
-        <Paper className="category-task-view-container" elevation={20}>
+        <div className="category-task-view-container">
           <div className="category-task-view-header-container">
             <div className="category-task-view-header">{category}</div>
             <div className="category-task-view-sub-header">
@@ -71,7 +71,7 @@ const CategoryList = (props) => {
               </Button>
             </div>
           </div>
-        </Paper>
+        </div>
       </div>
     </div>
   );

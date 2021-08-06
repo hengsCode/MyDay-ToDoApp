@@ -7,11 +7,7 @@
   border-radius: 5px;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-.task-card:hover {
-  cursor: move;
-}
-
-.to-do-card-content {
+.todo-card-content {
   color: rgb(233, 225, 181);
   font-weight: light;
   letter-spacing: 0.3rem;
@@ -53,14 +49,17 @@
   flex-direction: row;
   align-items: center;
 }
+.completedTask {
+  margin: 10px 0;
+}
 .draggable {
   margin: 10px 0;
 }
-.draggable:hover {
-  opacity: 90%;
-  transition: opacity 0.5s ease;
-}
 .draggable.dragging {
   opacity: 70%;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.8s ease-in-out;
+}
+.draggable.dropped {
+  opacity: 1;
+  transition: opacity 1s ease;
 }

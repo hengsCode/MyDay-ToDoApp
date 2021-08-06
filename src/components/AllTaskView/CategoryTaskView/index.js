@@ -1,13 +1,9 @@
 import { React, useState } from "react";
-import { Paper, TextField, Button } from "@material-ui/core";
+import { TextField, Button } from "@material-ui/core";
 import TaskList from "../../../components/TaskList";
 import "./styles.css";
 import { useSelector, useDispatch } from "react-redux";
 import { setTaskList } from "../../../redux/slices/category.slice";
-import { ExpandMore, ExpandLess } from "@material-ui/icons";
-
-const expandMore = <ExpandMore className="task-list-icon" />;
-const expandLess = <ExpandLess className="task-list-icon" />;
 
 const CategoryTaskView = (props) => {
   const { index } = props;
@@ -34,7 +30,7 @@ const CategoryTaskView = (props) => {
   return (
     <div className="category-list-container">
       <div className="category-list-content">
-        <Paper className="category-task-view-container" elevation={20}>
+        <div className="category-task-view-container">
           <div className="category-task-view-header-container">
             <div className="category-task-view-header">
               {categoryList[index].label}
@@ -65,7 +61,7 @@ const CategoryTaskView = (props) => {
               </Button>
             </div>
           </div>
-        </Paper>
+        </div>
       </div>
     </div>
   );

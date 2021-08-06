@@ -1,0 +1,14 @@
+.todo-list-container {
+  z-index: 9;
+  animation: slideIn 1s;
+}
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

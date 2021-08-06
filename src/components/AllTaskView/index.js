@@ -14,23 +14,33 @@ const AllTaskView = (props) => {
   };
 
   return (
-    <div>
+    <>
       <HomeHeader />
-
-      <div>
+      <div className="tabs-container">
         <Tabs
           value={value}
           onChange={handleChange}
-          indicatorColor="primary"
-          className="tabs-container"
+          centered
+          TabIndicatorProps={{
+            style: { background: "white" },
+          }}
         >
-          {categoryList.map((category) => {
-            return <Tab label={category.label} />;
+          {categoryList.map((category, index) => {
+            return (
+              <Tab
+                label={category.label}
+                className="category-tab-container"
+                style={{
+                  color: index === value ? "black" : "orange",
+                  opacity: index === value ? 1 : 0.8,
+                }}
+              />
+            );
           })}
         </Tabs>
-        <CategoryTaskView index={value} />
       </div>
-    </div>
+      <CategoryTaskView index={value} />
+    </>
   );
 };
 

@@ -1,18 +1,17 @@
 import { React } from "react";
 import { Radio } from "@material-ui/core";
 import { Delete } from "@material-ui/icons";
-import "./styles.css";
+import "../styles.css";
 
-const Task = (props) => {
-  const { task, handleDelete, handleRadioChange, taskCardContent } = props;
+const CompletedTask = (props) => {
+  const { task, handleDelete, handleRadioChange } = props;
 
   const handleRadio = () => {
     handleRadioChange(task.label);
     handleDelete(task.label);
   };
-
   return (
-    <div className="draggable" draggable>
+    <div className="completedTask">
       <div className="task-card">
         <div className="task-left">
           <Radio
@@ -22,7 +21,7 @@ const Task = (props) => {
             disableRipple
             disableTouchRipple
           />
-          <div className={taskCardContent}>{task.label}</div>
+          <div className="completed-card-content">{task.label}</div>
         </div>
         <Delete
           className="task-delete-icon"
@@ -35,4 +34,4 @@ const Task = (props) => {
   );
 };
 
-export default Task;
+export default CompletedTask;

@@ -20,7 +20,6 @@
   padding-left: 20px;
   padding-right: 20px;
   height: 812px;
-  background-color: blanchedalmond;
   overflow: auto;
 }
 .today-task-container::-webkit-scrollbar {

@@ -1,26 +1,25 @@
 import { React, useState } from "react";
 import "./styles.css";
-import { Card, CardActionArea, CardContent } from "@material-ui/core";
 import { ExpandMore, ExpandLess } from "@material-ui/icons";
-import ListComponent from "./ListComponent";
+import ToDoComponent from "./ToDoComponent";
+import CompletedComponent from "./CompletedComponent";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setTaskList,
   setCompletedList,
 } from "../../redux/slices/category.slice";
 
-const expandMore = <ExpandMore className="task-list-icon" />;
-const expandLess = <ExpandLess className="task-list-icon" />;
+const expandMore = <ExpandMore style={{ fontSize: 30 }} />;
+const expandLess = <ExpandLess style={{ fontSize: 30 }} />;
 
 const TaskList = (props) => {
   const { index } = props;
+  const [completeBool, setCompleteBool] = useState(false);
+  const [todoBool, setToDoBool] = useState(true);
+  const [completeOpen, setCompleteOpen] = useState(expandMore);
+  const [todoOpen, setToDoOpen] = useState(expandLess);
   const { categoryList } = useSelector((state) => state.category);
   const dispatch = useDispatch();
-
-  const [completeBool, setCompleteBool] = useState(false);
-  const [todoBool, setToDoBool] = useState(false);
-  const [completeOpen, setCompleteOpen] = useState(expandMore);
-  const [todoOpen, setToDoOpen] = useState(expandMore);
 
   const handleCompleteOpen = () => {
     setCompleteBool(!completeBool);
@@ -93,42 +92,36 @@ const TaskList = (props) => {
   };
 
   return (
-    <>
-      <Card className="task-list-container">
-        <CardActionArea onClick={handleToDoOpen}>
-          <CardContent className="task-list-content">
-            <div className="task-list-text">
-              Tasks [{categoryList[index].taskList.length}]
-            </div>
-            {todoOpen}
-          </CardContent>
-        </CardActionArea>
-      </Card>
-      <ListComponent
-        open={todoBool}
-        list={categoryList[index].taskList}
-        handleRadioChange={handleToDoRadio}
-        handleDelete={handleToDoDelete}
-        taskCardContent="to-do-card-content"
-      />
-      <Card className="task-list-container">
-        <CardActionArea onClick={handleCompleteOpen}>
-          <CardContent className="task-list-content">
-            <div className="task-list-text">
-              Completed [{categoryList[index].completedList.length}]
-            </div>
-            {completeOpen}
-          </CardContent>
-        </CardActionArea>
-      </Card>
-      <ListComponent
-        open={completeBool}
-        list={categoryList[index].completedList}
-        handleRadioChange={handleCompletedRadio}
-        handleDelete={handleCompletedDelete}
-        taskCardContent="completed-card-content"
-      />
-    </>
+    <div>
+      <div className="task-dropdown" onClick={handleToDoOpen}>
+        <div className="task-list-text">
+          Tasks [{categoryList[index].taskList.length}]
+        </div>
+        {todoOpen}
+      </div>
+      <div className="todo-dropdown-content">
+        <ToDoComponent
+          open={todoBool}
+          list={categoryList[index].taskList}
+          handleRadioChange={handleToDoRadio}
+          handleDelete={handleToDoDelete}
+        />
+      </div>
+      <div className="task-dropdown" onClick={handleCompleteOpen}>
+        <div className="task-list-text">
+          Completed [{categoryList[index].completedList.length}]
+        </div>
+        {completeOpen}
+      </div>
+      {completeBool && (
+        <CompletedComponent
+          open={completeBool}
+          list={categoryList[index].completedList}
+          handleRadioChange={handleCompletedRadio}
+          handleDelete={handleCompletedDelete}
+        />
+      )}
+    </div>
   );
 };
 export default TaskList;
