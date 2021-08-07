@@ -8,6 +8,14 @@ const Timer = () => {
   const [second, setSecond] = useState("00");
   const [start, setStart] = useState(false);
 
+  // window.onbeforeunload = function () {
+  //   if (hour !== "00" || minute !== "00" || second !== "00") {
+  //     return "Your timer is running... are you sure you want to leave?";
+  //   } else {
+  //     return undefined;
+  //   }
+  // };
+
   useEffect(() => {
     if (start) {
       const interval = setInterval(() => {
@@ -115,7 +123,7 @@ const Timer = () => {
       <HomeHeader />
       <div className="timer-container">
         <div className="timer-header-container">
-          <text className="timer-header">Countdown Timer</text>
+          <text className="timer-header">Study Timer</text>
           <text className="timer-selected-container">
             {`${hour}:${minute}:${second}`}
           </text>
@@ -154,6 +162,7 @@ const Timer = () => {
             step={1}
             value={hour}
             onChange={handleHourChange}
+            disabled={start}
           />
           <label className="timer-selection-label">Minutes</label>
           <input
@@ -163,6 +172,7 @@ const Timer = () => {
             step={1}
             value={minute}
             onChange={handleMinuteChange}
+            disabled={start}
           />
           <label className="timer-selection-label">Seconds</label>
           <input
@@ -172,6 +182,7 @@ const Timer = () => {
             step={1}
             value={second}
             onChange={handleSecondChange}
+            disabled={start}
           />
         </form>
       </div>

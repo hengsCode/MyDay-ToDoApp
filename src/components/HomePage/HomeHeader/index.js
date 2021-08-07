@@ -15,16 +15,18 @@ const HomeHeader = () => {
   };
   return (
     <>
-      <div className="home-header">
-        <button className="home-menu-icon-container" onClick={handleClick}>
-          <Menu className="home-menu-icon" />
-        </button>
-        <h1 className="home-header-text">{date}</h1>
-        <div className="profile-button-container">
-          <Button className="profile-button">
-            <Avatar className="profile-avatar">HF</Avatar>
-          </Button>
+      <div className="home-header-container">
+        <div className="home-header">
+          <Menu className="home-menu-icon" onClick={handleClick} />
         </div>
+        <Avatar
+          className="profile-avatar"
+          onClick={() => {
+            console.log("h");
+          }}
+        >
+          HF
+        </Avatar>
       </div>
       <div className="drawer-container">
         <Drawer open={drawer} onClose={handleClose} anchor="left">

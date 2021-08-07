@@ -1,8 +1,11 @@
 .timer-container {
+  position: absolute;
   display: flex;
   flex-direction: column;
-  padding: 50px 0 0 80px;
+  padding: 50px 0 0 0;
   height: 100%;
+  width: 100%;
+  max-width: 100%;
 }
 .timer-header-container {
   display: flex;
@@ -36,7 +39,7 @@
   border-radius: 10px;
   box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2),
     0 10px 20px 0 rgba(0, 0, 0, 0.19);
-  transition: 0.5s ease;
+  transition: 0.1s ease;
 }
 .timer-button:hover {
   width: 120px;
@@ -44,7 +47,7 @@
   opacity: 0.6;
   font-size: 24px;
   margin-top: 20px;
-  transition: 0.5s ease;
+  transition: 0.1s ease;
 }
 .timer-selection-container {
   display: flex;
@@ -60,6 +63,7 @@ input[type="range"] {
   width: 100%;
   padding: 20px 0;
   height: 80px;
+  background: blanchedalmond;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -70,7 +74,7 @@ input[type="range"]::-webkit-slider-thumb {
   background: orange;
   cursor: pointer;
   margin-top: -14px;
-  transition: 0.5s ease;
+  transition: 0.1s ease;
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
@@ -78,18 +82,18 @@ input[type="range"]::-webkit-slider-runnable-track {
   cursor: pointer;
   background: grey;
   border-radius: 10px;
-  transition: 0.5s ease;
+  transition: 0.1s ease;
 }
 
 input[type="range"]:hover::-webkit-slider-thumb {
   height: 50px;
   margin-top: -18px;
-  transition: 0.5s ease;
+  transition: 0.1s ease;
 }
 input[type="range"]:hover::-webkit-slider-runnable-track {
   background: silver;
   height: 15px;
-  transition: 0.5s ease;
+  transition: 0.1s ease;
 }
 
 .timer-selection-label {

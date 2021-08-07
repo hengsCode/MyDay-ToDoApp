@@ -8,14 +8,12 @@ import {
   Divider,
   Fab,
   Dialog,
-  DialogTitle,
   TextField,
   DialogContent,
-  DialogContentText,
   DialogActions,
   Button,
 } from "@material-ui/core";
-import { Home, Today, Menu, Add, LibraryAdd } from "@material-ui/icons";
+import { Home, Today, Add, LibraryAdd, Timer } from "@material-ui/icons";
 import "./styles.css";
 import Slide from "@material-ui/core/Slide";
 import CategoryListItem from "./CategoryListItem";
@@ -28,6 +26,7 @@ const Transition = forwardRef(function Transition(props, ref) {
 
 const TodayIcon = <Today className="menu-list-item-icon" />;
 const AllIcon = <Home className="menu-list-item-icon" />;
+const TimerIcon = <Timer className="menu-list-item-icon" />;
 
 const HomeDrawer = (props) => {
   const { closeDrawer } = props;
@@ -100,6 +99,7 @@ const HomeDrawer = (props) => {
           <List className="menu-list">
             <LinkItem link="/" label="Today" icon={TodayIcon} />
             <LinkItem link="/all" label="All tasks" icon={AllIcon} />
+            <LinkItem link="/timer" label="Timer" icon={TimerIcon} />
           </List>
         </div>
         <Divider
