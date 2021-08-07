@@ -9,7 +9,7 @@ const HomePage = () => {
   const currentDate = new Date().toString().substring(0, 15);
 
   return (
-    <div id="home-page" className="home-page-container">
+    <div className="home-page-container">
       <HomeHeader />
       <div className="home-page-contents">
         <div className="home-menu-container">

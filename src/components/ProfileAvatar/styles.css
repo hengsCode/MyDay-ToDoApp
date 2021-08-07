@@ -1,0 +1,11 @@
+.profile-avatar {
+  width: 100px !important;
+  height: 100px !important;
+  cursor: pointer;
+  margin: 10px;
+}
+.profile-avatar:hover {
+  opacity: 0.9;
+  font-size: 30px;
+  transition: 0.8s ease-in-out;
+}
