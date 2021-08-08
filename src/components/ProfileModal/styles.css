@@ -1,0 +1,120 @@
+.edit-profile-modal {
+  display: flex;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  z-index: 90;
+  animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.edit-profile-content {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(250, 202, 143);
+  max-height: 60%;
+  overflow: auto;
+  width: 50%;
+  align-items: center;
+  z-index: 92;
+  margin-top: 100px;
+  padding: 20px;
+}
+.edit-profile-header {
+  text-align: center;
+  font-size: 70px;
+  font-weight: lighter;
+  padding: 0 0 10px 0;
+}
+.edit-profile-exit-icon {
+  align-self: flex-end;
+  cursor: pointer;
+  font-size: 50px !important;
+  color: red;
+}
+.edit-profile-exit-icon:hover {
+  opacity: 0.5;
+}
+.edit-profile-field {
+  font-size: 30px;
+  padding: 25px;
+  font-weight: lighter;
+}
+
+input[type="text"] {
+  background: transparent;
+  align-self: center;
+  font-size: 28px;
+  text-transform: capitalize;
+  border: none;
+  border-bottom: solid 1px black;
+}
+input[type="text"]:hover {
+  background: #ff7144;
+  color: whitesmoke;
+  border-bottom: solid 1px whitesmoke;
+}
+input[type="text"]:focus {
+  outline: none;
+  background: #ff7144;
+  color: white;
+  border-bottom: solid 1px white;
+}
+input[type="date"] {
+  appearance: none;
+  background: transparent;
+  font-size: 28px;
+  border: none;
+  border-bottom: solid 1px black;
+  cursor: text;
+}
+input[type="date"]:hover {
+  background: #ff7144;
+  color: whitesmoke;
+  border-bottom: solid 1px whitesmoke;
+}
+input[type="date"]:focus {
+  outline: none;
+  background: #ff7144;
+  color: white;
+  border-bottom: solid 1px white;
+}
+
+input[type="date"]:focus::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+input[type="date"]:hover::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+.edit-profile-submit-container {
+  height: 45px;
+  margin: 10px 0 40px 0;
+}
+.edit-profile-submit {
+  border: none;
+  background: black;
+  color: orange;
+  font-size: 23px;
+  height: 40px;
+  width: 150px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.edit-profile-submit:hover {
+  background: darkgrey;
+  color: black;
+  font-size: 25px;
+  height: 45px;
+  width: 155px;
+  transition: 0.3s ease;
+}
