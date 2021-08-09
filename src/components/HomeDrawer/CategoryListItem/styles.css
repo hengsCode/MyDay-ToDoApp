@@ -1,6 +1,15 @@
-.menu-category-item {
-  /* padding-left: 100px !important; */
+/* .menu-category-item {
+  animation: slideRight 1s;
 }
+
+@keyframes slideRight {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+} */
 .menu-category-item-text {
   font-size: 20px;
   padding-bottom: 5px;

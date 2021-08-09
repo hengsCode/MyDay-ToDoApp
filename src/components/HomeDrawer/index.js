@@ -1,28 +1,13 @@
-import { React, useState, forwardRef } from "react";
+import { React, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import {
-  List,
-  ListItem,
-  ListItemIcon,
-  Avatar,
-  Divider,
-  Fab,
-  Dialog,
-  TextField,
-  DialogContent,
-  DialogActions,
-  Button,
-} from "@material-ui/core";
+import { List, ListItem, ListItemIcon, Divider, Fab } from "@material-ui/core";
+import ProfileAvatar from "../ProfileAvatar";
 import { Home, Today, Add, LibraryAdd, Timer } from "@material-ui/icons";
 import "./styles.css";
-import Slide from "@material-ui/core/Slide";
 import CategoryListItem from "./CategoryListItem";
+import AddCategory from "./AddCategory";
 import { useSelector, useDispatch } from "react-redux";
 import { setCategory } from "../../redux/slices/category.slice";
-
-const Transition = forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
 
 const TodayIcon = <Today className="menu-list-item-icon" />;
 const AllIcon = <Home className="menu-list-item-icon" />;
@@ -83,7 +68,9 @@ const HomeDrawer = (props) => {
   };
 
   const handleChange = (e) => {
-    setNewTitle(e.target.value);
+    if (open) {
+      setNewTitle(e.target.value);
+    }
   };
 
   return (
@@ -92,7 +79,7 @@ const HomeDrawer = (props) => {
         <div className="home-drawer-header">
           <div className="home-drawer-header-content">
             <div className="home-drawer-header-text">Your To-Do's</div>
-            <Avatar className="home-drawer-avatar">HF</Avatar>
+            <ProfileAvatar initial="HF" />
           </div>
         </div>
         <div className="home-drawer-body">
@@ -111,7 +98,7 @@ const HomeDrawer = (props) => {
           id="home-drawer-footer-content"
           className="home-drawer-footer-content"
         >
-          <List className="menu-category-list">
+          <List>
             {categoryList.map((category) => {
               if (category.label !== "Today") {
                 return (
@@ -138,29 +125,14 @@ const HomeDrawer = (props) => {
           </div>
         </div>
       </div>
-      <Dialog
+      <AddCategory
         open={open}
-        TransitionComponent={Transition}
-        keepMounted
-        onClose={handleClose}
-      >
-        <DialogContent>
-          <TextField
-            className="dialog-new-list-title"
-            placeholder="Add a new title..."
-            onChange={handleChange}
-            value={newTitle}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleAdd} color="primary">
-            Add
-          </Button>
-        </DialogActions>
-      </Dialog>
+        handleClose={handleClose}
+        handleChange={handleChange}
+        handleClose={handleClose}
+        handleAdd={handleAdd}
+        newTitle={newTitle}
+      />
     </>
   );
 };

@@ -5,7 +5,7 @@ import { Close } from "@material-ui/icons";
 import "./styles.css";
 
 const ProfileModal = (props) => {
-  const { firstName, lastName, birthDate, hobbies, handleSubmit, handleEdit } =
+  const { firstName, lastName, birthDate, hobbies, handleSubmit, handleClose } =
     props;
   const [firstname, setFirstName] = useState(firstName);
   const [lastname, setLastName] = useState(lastName);
@@ -49,7 +49,7 @@ const ProfileModal = (props) => {
   return (
     <div className="edit-profile-modal">
       <div className="edit-profile-content">
-        <Close className="edit-profile-exit-icon" onClick={handleEdit} />
+        <Close className="edit-profile-exit-icon" onClick={handleClose} />
         <div className="edit-profile-header">Edit your profile details:</div>
         <div className="edit-profile-submit-container">
           <button className="edit-profile-submit" onClick={handleFormSubmit}>

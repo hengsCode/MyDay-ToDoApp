@@ -23,13 +23,23 @@ const Profile = (props) => {
 
   const handleSubmit = (newDetails) => {
     setDetails(newDetails);
-    setEditing(!editing);
+    handleFadeAway();
+  };
+
+  const handleFadeAway = () => {
+    setTimeout(function () {
+      handleEdit();
+    }, 550);
+    document.querySelector(".edit-profile-modal").style.transform =
+      "translateY(-100%)";
+    document.querySelector(".edit-profile-modal").style.transition =
+      "transform 0.5s ease";
   };
 
   const handleClickAway = (e) => {
     if (editing) {
       if (!document.querySelector(".edit-profile-content").contains(e.target)) {
-        setEditing(false);
+        handleFadeAway();
       }
     }
   };
@@ -43,13 +53,10 @@ const Profile = (props) => {
           birthDate={details.birthDate}
           hobbies={details.hobbies}
           handleSubmit={handleSubmit}
-          handleEdit={handleEdit}
+          handleClose={handleFadeAway}
         />
       )}
-      <div
-        className="profile-page-container"
-        style={{ opacity: editing ? 0.5 : 1 }}
-      >
+      <div className="profile-page-container">
         <HomeHeader />
         <div className="profile-user-content">
           <div className="profile-avatar-icon">

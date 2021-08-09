@@ -1,0 +1,81 @@
+.add-category-header {
+  font-weight: lighter;
+  font-size: 35px;
+  text-align: center;
+  background: #ff7144;
+  width: 500px;
+  color: white;
+  padding: 20px;
+}
+.add-category-content {
+  background: blanchedalmond;
+  height: 500px;
+  width: 500px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.add-category-input-container {
+  position: relative;
+  height: 300px;
+  width: fit-content;
+  margin-bottom: 100px;
+}
+.add-category-content input[type="text"] {
+  outline: none;
+  border: none;
+  font-size: 20px;
+  font-weight: lighter;
+  background: rgb(42, 37, 37);
+  color: rgb(233, 225, 181);
+  padding: 15px;
+  border-radius: 30px;
+}
+.add-category-content input[type="text"]::placeholder {
+  font-size: 20px;
+  font-weight: lighter;
+  color: rgb(233, 225, 181);
+  opacity: 0.5;
+}
+.add-category-content input[type="text"]:hover {
+  background: #ff7144;
+}
+.add-category-content input[type="text"]:hover::placeholder {
+  color: white;
+  opacity: 0.8;
+}
+
+.add-category-btn-container {
+  align-self: flex-end;
+  display: flex;
+  flex-direction: row;
+  height: 40px;
+  width: 170px;
+}
+.add-category-closebtn:hover {
+  background: red;
+  color: white;
+}
+.add-category-addbtn:hover {
+  background: green;
+  color: white;
+}
+.add-category-btn-container button {
+  margin: 30px 10px 0 0;
+  width: 80px;
+  height: 30px;
+  font-size: 15px;
+  border: none;
+  background: black;
+  color: orange;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+  border-radius: 30px;
+}
+.add-category-btn-container button:hover {
+  width: 90px;
+  height: 40px;
+  transition: 0.3s ease-in-out;
+}

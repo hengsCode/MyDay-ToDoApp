@@ -50,7 +50,7 @@
   font-weight: lighter;
 }
 
-input[type="text"] {
+.edit-profile-field input[type="text"] {
   background: transparent;
   align-self: center;
   font-size: 28px;
@@ -58,18 +58,18 @@ input[type="text"] {
   border: none;
   border-bottom: solid 1px black;
 }
-input[type="text"]:hover {
+.edit-profile-field input[type="text"]:hover {
   background: #ff7144;
   color: whitesmoke;
   border-bottom: solid 1px whitesmoke;
 }
-input[type="text"]:focus {
+.edit-profile-field input[type="text"]:focus {
   outline: none;
   background: #ff7144;
   color: white;
   border-bottom: solid 1px white;
 }
-input[type="date"] {
+.edit-profile-field input[type="date"] {
   appearance: none;
   background: transparent;
   font-size: 28px;
@@ -77,22 +77,24 @@ input[type="date"] {
   border-bottom: solid 1px black;
   cursor: text;
 }
-input[type="date"]:hover {
+.edit-profile-field input[type="date"]:hover {
   background: #ff7144;
   color: whitesmoke;
   border-bottom: solid 1px whitesmoke;
 }
-input[type="date"]:focus {
+.edit-profile-field input[type="date"]:focus {
   outline: none;
   background: #ff7144;
   color: white;
   border-bottom: solid 1px white;
 }
 
-input[type="date"]:focus::-webkit-calendar-picker-indicator {
+.edit-profile-field
+  input[type="date"]:focus::-webkit-calendar-picker-indicator {
   filter: invert(1);
 }
-input[type="date"]:hover::-webkit-calendar-picker-indicator {
+.edit-profile-field
+  input[type="date"]:hover::-webkit-calendar-picker-indicator {
   filter: invert(1);
   cursor: pointer;
 }
@@ -108,6 +110,7 @@ input[type="date"]:hover::-webkit-calendar-picker-indicator {
   height: 40px;
   width: 150px;
   cursor: pointer;
+  border-radius: 30px;
   transition: 0.3s ease;
 }
 .edit-profile-submit:hover {
