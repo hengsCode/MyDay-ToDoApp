@@ -1,0 +1,65 @@
+.task-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: rgb(42, 37, 37);
+  height: 60px;
+  border-radius: 5px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.todo-card-content {
+  color: rgb(233, 225, 181);
+  font-weight: light;
+  letter-spacing: 0.3rem;
+  font-size: 17px;
+}
+.completed-card-content {
+  color: rgb(233, 225, 181);
+  font-weight: light;
+  opacity: 20%;
+  letter-spacing: 0.3rem;
+  font-size: 17px;
+  text-decoration-line: line-through;
+}
+
+.task-radio {
+  color: grey !important;
+  align-self: center !important;
+  height: fit-content;
+}
+.task-radio:hover {
+  background-color: transparent !important;
+}
+.task-delete-icon {
+  align-self: center;
+  position: relative;
+  right: 20px;
+  color: crimson;
+}
+.task-delete-icon:hover {
+  cursor: pointer;
+  opacity: 50%;
+}
+.new-task-button-container {
+  align-self: center;
+  padding-left: 5px;
+}
+.task-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.completedTask {
+  margin: 10px 0;
+}
+.draggable {
+  margin: 10px 0;
+}
+.draggable.dragging {
+  opacity: 70%;
+  transition: opacity 0.8s ease-in-out;
+}
+.draggable.dropped {
+  opacity: 1;
+  transition: opacity 1s ease;
+}

@@ -1,0 +1,22 @@
+.task-dropdown {
+  display: flex;
+  flex-direction: row;
+  background-color: #ff7144;
+  padding: 10px;
+  height: fit-content;
+  width: fit-content;
+  position: relative;
+  z-index: 999;
+  margin-bottom: 10px;
+}
+.task-dropdown:hover {
+  cursor: pointer;
+  background-color: #ffa65e;
+  transition: background-color 1s ease;
+}
+
+.task-list-text {
+  color: white;
+  text-align: center;
+  font-size: 20px;
+}
