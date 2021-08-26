@@ -31,16 +31,6 @@
   font-size: 55px !important;
   transition: 0.5s ease-in-out;
 }
-.profile-avatar {
-  width: 100px !important;
-  height: 100px !important;
-  cursor: pointer;
-  margin: 10px;
-}
-.profile-avatar:hover {
-  opacity: 0.9;
-  transition: 0.8s ease-in-out;
-}
 .drawer-container {
   width: 100%;
 }

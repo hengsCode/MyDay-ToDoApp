@@ -8,17 +8,4 @@ const Home = () => {
   return <Route exact path={path} component={HomePage} />;
 };
 
-// const HomeRoutes = () => {
-//   return (
-//     <div>
-//       <Link to={`/profile`}>
-//         <button>Profile</button>
-//       </Link>
-//       <Link to={`/products`}>
-//         <button>Products</button>
-//       </Link>
-//     </div>
-//   );
-// };
-
 export default Home;

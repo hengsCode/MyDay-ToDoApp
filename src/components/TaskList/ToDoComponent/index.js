@@ -9,11 +9,9 @@ const ToDoComponent = (props) => {
   const [loading, isLoading] = useState(false);
 
   useEffect(() => {
-    if (open) {
-      addDragListener();
-    }
+    addDragListener();
     isLoading(true);
-  }, [open, list]);
+  }, [loading]);
 
   if (open) {
     return (

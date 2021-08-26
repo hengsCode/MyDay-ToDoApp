@@ -1,0 +1,56 @@
+.profile-page-container {
+}
+.profile-user-content {
+  display: flex;
+  flex-direction: column;
+}
+.profile-avatar-icon {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  zoom: 350%;
+  align-self: center;
+  margin-bottom: -20px;
+}
+.edit-profile-icon {
+  position: relative;
+  color: #ff7144;
+  font-size: 15px !important;
+  left: 100px;
+  bottom: 30px;
+  height: 20px !important;
+  cursor: pointer;
+}
+.edit-profile-icon:hover {
+  font-size: 20px !important;
+  opacity: 0.8;
+  transition: 0.5s ease-in-out;
+}
+.profile-user-details {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.profile-user-name {
+  text-transform: capitalize;
+  font-size: 60px;
+}
+.profile-user-birth {
+  font-size: 20px;
+  font-style: italic;
+  font-weight: lighter;
+  margin-top: 10px;
+}
+.profile-hobby-header {
+  font-size: 40px;
+  font-weight: lighter;
+  margin-top: 30px;
+}
+.profile-user-hobby-list {
+  text-align: center;
+}
+.profile-user-hobbies {
+  font-size: 30px;
+  color: darkorange;
+  font-weight: lighter;
+}
