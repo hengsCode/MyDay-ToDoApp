@@ -4,16 +4,28 @@ import { ExpandMore, ExpandLess } from "@material-ui/icons";
 import ToDoComponent from "./ToDoComponent";
 import CompletedComponent from "./CompletedComponent";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setTaskList,
-  setCompletedList,
-} from "../../redux/slices/category.slice";
+import { setTaskList, setCompletedList } from "../../redux/slices/group.slice";
 
 const expandMore = <ExpandMore style={{ fontSize: 30 }} />;
 const expandLess = <ExpandLess style={{ fontSize: 30 }} />;
 
 const TaskList = (props) => {
+<<<<<<< HEAD
   const { index } = props;
+=======
+  const { categoryId, groupId } = props;
+  const { groupList } = useSelector((state) => state.group);
+  const dispatch = useDispatch();
+
+  const group = groupList.find((group) => {
+    return group._groupId === groupId;
+  });
+
+  const category = group.categoryList.find((category) => {
+    return category._categoryId === categoryId;
+  });
+
+>>>>>>> feat/group-lists
   const [completeBool, setCompleteBool] = useState(false);
   const [todoBool, setToDoBool] = useState(true);
   const [completeOpen, setCompleteOpen] = useState(expandMore);
@@ -39,25 +51,32 @@ const TaskList = (props) => {
     }
   };
 
-  const handleToDoRadio = (label) => {
+  const handleToDoRadio = (_taskId) => {
+    const task = category.taskList.find((obj) => obj._taskId == _taskId);
     dispatch(
       setCompletedList({
-        index: index,
+        _groupId: group._groupId,
+        _categoryId: category._categoryId,
         completedList: [
-          ...categoryList[index].completedList,
-          { label: label, checked: true },
+          ...category.completedList,
+          {
+            _taskId: category.completedList.length + 1,
+            label: task.label,
+            checked: true,
+          },
         ],
       })
     );
-    handleToDoDelete(label);
+    handleToDoDelete(_taskId);
   };
 
-  const handleToDoDelete = (label) => {
+  const handleToDoDelete = (_taskId) => {
     dispatch(
       setTaskList({
-        index: index,
-        taskList: categoryList[index].taskList.filter((task) => {
-          if (task.label !== label) {
+        _groupId: group._groupId,
+        _categoryId: category._categoryId,
+        taskList: category.taskList.filter((task) => {
+          if (task._taskId !== _taskId) {
             return task;
           }
         }),
@@ -65,25 +84,32 @@ const TaskList = (props) => {
     );
   };
 
-  const handleCompletedRadio = (label) => {
+  const handleCompletedRadio = (_taskId) => {
+    const task = category.completedList.find((obj) => obj._taskId == _taskId);
     dispatch(
       setTaskList({
-        index: index,
+        _groupId: group._groupId,
+        _categoryId: category._categoryId,
         taskList: [
-          ...categoryList[index].taskList,
-          { label: label, checked: false },
+          ...category.taskList,
+          {
+            _taskId: category.taskList.length + 1,
+            label: task.label,
+            checked: false,
+          },
         ],
       })
     );
-    handleCompletedDelete(label);
+    handleCompletedDelete(_taskId);
   };
 
-  const handleCompletedDelete = (label) => {
+  const handleCompletedDelete = (_taskId) => {
     dispatch(
       setCompletedList({
-        index: index,
-        completedList: categoryList[index].completedList.filter((task) => {
-          if (task.label !== label) {
+        _groupId: group._groupId,
+        _categoryId: category._categoryId,
+        completedList: category.completedList.filter((task) => {
+          if (task._taskId !== _taskId) {
             return task;
           }
         }),
@@ -92,6 +118,7 @@ const TaskList = (props) => {
   };
 
   return (
+<<<<<<< HEAD
     <div>
       <div className="task-dropdown" onClick={handleToDoOpen}>
         <div className="task-list-text">
@@ -100,10 +127,45 @@ const TaskList = (props) => {
         {todoOpen}
       </div>
       <ToDoComponent
+=======
+    <>
+      <Card className="task-list-container">
+        <CardActionArea onClick={handleToDoOpen}>
+          <CardContent className="task-list-content">
+            <div className="task-list-text">
+              Tasks [{category.taskList.length}]
+            </div>
+            {todoOpen}
+          </CardContent>
+        </CardActionArea>
+      </Card>
+      <ListComponent
+>>>>>>> feat/group-lists
         open={todoBool}
-        list={categoryList[index].taskList}
+        list={category.taskList}
         handleRadioChange={handleToDoRadio}
         handleDelete={handleToDoDelete}
+<<<<<<< HEAD
+=======
+        taskCardContent="to-do-card-content"
+      />
+      <Card className="task-list-container">
+        <CardActionArea onClick={handleCompleteOpen}>
+          <CardContent className="task-list-content">
+            <div className="task-list-text">
+              Completed [{category.completedList.length}]
+            </div>
+            {completeOpen}
+          </CardContent>
+        </CardActionArea>
+      </Card>
+      <ListComponent
+        open={completeBool}
+        list={category.completedList}
+        handleRadioChange={handleCompletedRadio}
+        handleDelete={handleCompletedDelete}
+        taskCardContent="completed-card-content"
+>>>>>>> feat/group-lists
       />
       <div className="task-dropdown" onClick={handleCompleteOpen}>
         <div className="task-list-text">

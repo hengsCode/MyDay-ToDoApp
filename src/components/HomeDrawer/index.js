@@ -1,25 +1,49 @@
 import { React, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+<<<<<<< HEAD
 import { List, ListItem, ListItemIcon, Divider, Fab } from "@material-ui/core";
 import ProfileAvatar from "../ProfileAvatar";
 import { Home, Today, Add, LibraryAdd, Timer } from "@material-ui/icons";
+=======
+import {
+  List,
+  ListItem,
+  ListItemIcon,
+  Avatar,
+  Divider,
+} from "@material-ui/core";
+import { Home, Today, ListAlt } from "@material-ui/icons";
+>>>>>>> feat/group-lists
 import "./styles.css";
 import CategoryListItem from "./CategoryListItem";
 import AddCategory from "./AddCategory";
 import { useSelector, useDispatch } from "react-redux";
-import { setCategory } from "../../redux/slices/category.slice";
+import { setCategory, setGroup } from "../../redux/slices/group.slice";
+import DialogAdd from "./DialogAdd";
+import DrawerFabs from "./DrawerFabs";
 
 const TodayIcon = <Today className="menu-list-item-icon" />;
 const AllIcon = <Home className="menu-list-item-icon" />;
+<<<<<<< HEAD
 const TimerIcon = <Timer className="menu-list-item-icon" />;
 
+=======
+const ListAltIcon = <ListAlt className="menu-list-item-icon" />;
+>>>>>>> feat/group-lists
 const HomeDrawer = (props) => {
   const { closeDrawer } = props;
-  const [open, setOpen] = useState(false);
+  const [groupOpen, setGroupOpen] = useState(false);
+  const [categoryOpen, setCategoryOpen] = useState(false);
   const [newTitle, setNewTitle] = useState("");
   const [newFocus, setNewFocus] = useState(false);
-  const { categoryList } = useSelector((state) => state.category);
+  const { groupList } = useSelector((state) => state.group);
   const dispatch = useDispatch();
+
+  const groups = groupList.filter(
+    (obj) => obj.isGroup === true && obj.label.toLowerCase() !== "today"
+  );
+  const unassigned = groupList.find((obj) => obj.isGroup === false);
+  const { categoryList, _groupId } = unassigned;
 
   let history = useHistory();
 
@@ -38,33 +62,69 @@ const HomeDrawer = (props) => {
   const handleClick = (category) => {
     closeDrawer();
     history.push({
-      pathname: "/category/" + category.toLowerCase(),
+      pathname: "/category/" + category.label.toLowerCase(),
+      state: { _groupId: _groupId, _categoryId: category._categoryId },
     });
     {
     }
   };
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
+  const handleCategoryClose = () => {
     setNewTitle("");
+    setCategoryOpen(false);
   };
 
-  const handleAdd = () => {
+  const handleCategoryAdd = () => {
     dispatch(
       setCategory({
+        _groupId: 1,
         categoryList: [
           ...categoryList,
-          { label: newTitle, taskList: [], completedList: [] },
+          {
+            _categoryId:
+              categoryList.length === 0 ? 0 : categoryList.length + 1,
+            label: newTitle,
+            taskList: [],
+            completedList: [],
+          },
         ],
       })
     );
-    handleClose();
     setNewTitle("");
+    handleCategoryClose();
     setNewFocus(true);
+  };
+
+  const handleGroupAdd = () => {
+    dispatch(
+      setGroup({
+        groupList: [
+          ...groupList,
+          {
+            _groupId: groupList.length + 1,
+            isGroup: true,
+            label: newTitle,
+            categoryList: [{ _categoryId: 0, taskList: [], completedList: [] }],
+          },
+        ],
+      })
+    );
+    setNewTitle("");
+    handleGroupClose();
+    setNewFocus(true);
+  };
+
+  const handleCategoryOpen = () => {
+    setCategoryOpen(true);
+  };
+
+  const handleGroupOpen = () => {
+    setGroupOpen(true);
+  };
+
+  const handleGroupClose = () => {
+    setNewTitle("");
+    setGroupOpen(false);
   };
 
   const handleChange = (e) => {
@@ -85,8 +145,22 @@ const HomeDrawer = (props) => {
         <div className="home-drawer-body">
           <List className="menu-list">
             <LinkItem link="/" label="Today" icon={TodayIcon} />
+<<<<<<< HEAD
             <LinkItem link="/all" label="All tasks" icon={AllIcon} />
             <LinkItem link="/timer" label="Timer" icon={TimerIcon} />
+=======
+            {/* <LinkItem link="/all" label="All tasks" icon={AllIcon} /> */}
+            {groups.map((group) => (
+              <LinkItem
+                link={{
+                  pathname: `/group/${group.label}`,
+                  state: { _groupId: group._groupId },
+                }}
+                label={group.label}
+                icon={ListAltIcon}
+              />
+            ))}
+>>>>>>> feat/group-lists
           </List>
         </div>
         <Divider
@@ -100,37 +174,44 @@ const HomeDrawer = (props) => {
         >
           <List>
             {categoryList.map((category) => {
-              if (category.label !== "Today") {
-                return (
-                  <CategoryListItem
-                    category={category.label}
-                    handleClick={handleClick}
-                    newFocus={newFocus}
-                  />
-                );
-              }
+              return (
+                <CategoryListItem
+                  category={category}
+                  handleClick={handleClick}
+                  newFocus={newFocus}
+                />
+              );
             })}
           </List>
         </div>
-        <div className="home-drawer-fab-both-container">
-          <div className="home-drawer-fab-container">
-            <Fab className="home-drawer-fab" onClick={handleClickOpen}>
-              <LibraryAdd className="drawer-fab-icon" />
-            </Fab>
-          </div>
-          <div className="home-drawer-fab-container">
-            <Fab className="home-drawer-fab" onClick={handleClickOpen}>
-              <Add className="drawer-fab-icon" />
-            </Fab>
-          </div>
-        </div>
+        <DrawerFabs
+          handleCategoryOpen={handleCategoryOpen}
+          handleGroupOpen={handleGroupOpen}
+        />
       </div>
+<<<<<<< HEAD
       <AddCategory
         open={open}
         handleClose={handleClose}
         handleChange={handleChange}
         handleClose={handleClose}
         handleAdd={handleAdd}
+=======
+      <DialogAdd
+        open={categoryOpen}
+        handleClose={handleCategoryClose}
+        Transition={Transition}
+        handleAdd={handleCategoryAdd}
+        handleChange={handleChange}
+        newTitle={newTitle}
+      />
+      <DialogAdd
+        open={groupOpen}
+        handleClose={handleGroupClose}
+        Transition={Transition}
+        handleAdd={handleGroupAdd}
+        handleChange={handleChange}
+>>>>>>> feat/group-lists
         newTitle={newTitle}
       />
     </>

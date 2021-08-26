@@ -17,7 +17,7 @@ const CategoryListItem = (props) => {
       <ListItemIcon>
         <Menu className="menu-category-item-icon" />
       </ListItemIcon>
-      <div className="menu-category-item-text">{category}</div>
+      <div className="menu-category-item-text">{category.label}</div>
     </ListItem>
   );
 };

@@ -2,15 +2,18 @@ import { React, useState } from "react";
 import HomeHeader from "../HomePage/HomeHeader";
 import { Tabs, Tab } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import CategoryTaskView from "./CategoryTaskView";
+import GroupTaskView from "./GroupTaskView";
 import "./styles.css";
 
 const AllTaskView = (props) => {
+  let indexList = [];
   const [value, setValue] = useState(0);
-  const { categoryList } = useSelector((state) => state.category);
+  const [idObj, setidObj] = useState({ _groupId: 0 });
+  const { groupList } = useSelector((state) => state.group);
 
   const handleChange = (_, newValue) => {
     setValue(newValue);
+    setidObj(indexList[newValue]);
   };
 
   return (
@@ -20,6 +23,7 @@ const AllTaskView = (props) => {
         <Tabs
           value={value}
           onChange={handleChange}
+<<<<<<< HEAD
           centered
           TabIndicatorProps={{
             style: { background: "white" },
@@ -38,6 +42,20 @@ const AllTaskView = (props) => {
             );
           })}
         </Tabs>
+=======
+          indicatorColor="primary"
+          className="tabs-container"
+          centered
+        >
+          {groupList.map((group) => {
+            indexList.push({
+              _groupId: group._groupId,
+            });
+            return <Tab label={group.label} />;
+          })}
+        </Tabs>
+        <GroupTaskView index={idObj} />
+>>>>>>> feat/group-lists
       </div>
       <CategoryTaskView index={value} />
     </>

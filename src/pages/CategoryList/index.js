@@ -1,25 +1,23 @@
 import { React, useState } from "react";
-import { useParams } from "react-router-dom";
 import HomeHeader from "../../components/HomePage/HomeHeader";
 import { TextField, Button } from "@material-ui/core";
 import TaskList from "../../components/TaskList";
 import "./styles.css";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setCategory,
-  setTaskList,
-  setCompletedList,
-} from "../../redux/slices/category.slice";
+import { setTaskList } from "../../redux/slices/group.slice";
 
 const CategoryList = (props) => {
-  const { category } = useParams();
-  const { categoryList } = useSelector((state) => state.category);
+  const { _groupId, _categoryId } = props.location.state;
+  const { groupList } = useSelector((state) => state.group);
   const dispatch = useDispatch();
   const [newTask, setNewTask] = useState("");
 
-  let result = categoryList.findIndex((obj) => {
-    return obj.label.toLowerCase() === category;
-  });
+  const { categoryList } = groupList.find(
+    (group) => group._groupId === _groupId
+  );
+  const category = categoryList.find(
+    (category) => category._categoryId === _categoryId
+  );
 
   const handleChange = (e) => {
     setNewTask(e.target.value);
@@ -28,10 +26,15 @@ const CategoryList = (props) => {
   const handleClick = () => {
     dispatch(
       setTaskList({
-        index: result,
+        _groupId: _groupId,
+        _categoryId: _categoryId,
         taskList: [
-          ...categoryList[result].taskList,
-          { label: newTask, checked: false },
+          ...category.taskList,
+          {
+            _taskId: category.taskList.length + 1,
+            label: newTask,
+            checked: false,
+          },
         ],
       })
     );
@@ -44,13 +47,13 @@ const CategoryList = (props) => {
       <div className="category-list-content">
         <div className="category-task-view-container">
           <div className="category-task-view-header-container">
-            <div className="category-task-view-header">{category}</div>
+            <div className="category-task-view-header">{category.label}</div>
             <div className="category-task-view-sub-header">
-              {categoryList[result].completedList.length} completed tasks
+              {category.completedList.length} completed tasks
             </div>
           </div>
           <div className="category-task-list-container">
-            <TaskList index={result} />
+            <TaskList groupId={_groupId} categoryId={_categoryId} />
           </div>
           <div className="category-task-view-new-task">
             <TextField

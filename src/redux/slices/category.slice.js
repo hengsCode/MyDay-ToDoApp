@@ -5,6 +5,7 @@ const category = localStorage.getItem("category")
   : {
       categoryList: [
         {
+          _categoryId: 0,
           label: "Today",
           taskList: [
             {
@@ -72,5 +73,3 @@ export const { setCategory, setTaskList, setCompletedList } =
   categorySlice.actions;
 
 export default categorySlice.reducer;
-
-// dispatch(setAuth({ token, user: requestData.user }));
